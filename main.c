@@ -32,7 +32,31 @@ int main(void) {
     pthread_create(&G29Input, NULL, input, NULL);
 
     while (1) {
-        // your code here
+        // G29State.steering -> -32768 to 32767 based on where the wheel is turned
+        // G29State.throttle -> 255 fully raised, 0 fully pressed
+        // G29State.brake -> 255 fully raised, 0 fully pressed
+        // G29State.clutch -> 255 fully raised, 0 fully pressed
+        //
+        // G29State.X -> 1 = pressed, 0 = not pressed
+        // G29State.square -> 1 = pressed, 0 = not pressed
+        // G29State.triangle -> 1 = pressed, 0 = not pressed
+        // G29State.circle -> 1 = pressed, 0 = not pressed
+        // G29State.L2 -> 1 = pressed, 0 = not pressed
+        // G29State.R2 -> 1 = pressed, 0 = not pressed
+        // G29State.L3 -> 1 = pressed, 0 = not pressed
+        // G29State.R3 -> 1 = pressed, 0 = not pressed
+        // G29State.DPadUp -> 1 = pressed, 0 = not pressed
+        // G29State.DPadDown -> 1 = pressed, 0 = not pressed
+        // G29State.DPadLeft -> 1 = pressed, 0 = not pressed
+        // G29State.DPadRight -> 1 = pressed, 0 = not pressed
+        // G29State.rotaryDialPress -> 1 = pressed, 0 = not pressed
+        // G29State.plus -> 1 = pressed, 0 = not pressed
+        // G29State.minus -> 1 = pressed, 0 = not pressed
+        // G29State.leftPaddle -> 1 = pressed, 0 = not pressed
+        // G29State.rightPaddle -> 1 = pressed, 0 = not pressed
+        // G29State.share -> 1 = pressed, 0 = not pressed
+        // G29State.options -> 1 = pressed, 0 = not pressed
+        // G29State.PS -> 1 = pressed, 0 = not pressed
     }
 
     G29Input = 0; // tell steering wheel threads to stop
