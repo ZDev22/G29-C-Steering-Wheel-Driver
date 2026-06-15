@@ -1,10 +1,3 @@
-/* licensed under GPL v3.0 see https://github.com/ZDev22/ZEngine/blob/main/LICENSE for current license
-
-An example implementation on how to init and use zengine, as well as a few zdeps!
-
-#define FPS_CAP 60.f // set the framerate, dont define for no FPS cap
-*/
-
 #define G29_IMPLEMENTATION
 #define G29_UNCAP
 #include "G29.h"
