@@ -16,8 +16,8 @@
 typedef struct G29state {
     unsigned short steering;
     unsigned char throttle;
-    unsigned char clutch;
     unsigned char brake;
+    unsigned char clutch;
 
     _Bool X;
     _Bool square;
@@ -205,8 +205,8 @@ void G29update(void) {
 
     G29State.steering = (unsigned short)cache[4] | ((unsigned short)cache[5] << 8);
     G29State.throttle = cache[6];
-    G29State.clutch = cache[8];
     G29State.brake = cache[7];
+    G29State.clutch = cache[8];
 
     G29State.X = (cache[0] & 0x18) == 0x18;
     G29State.square = (cache[0] & 0x28) == 0x28;
