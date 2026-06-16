@@ -34,7 +34,7 @@ typedef struct G29state {
     _Bool DPadLeft;
     _Bool DPadRight;
 
-    _Bool rotaryDialPress;
+    _Bool dial;
 
     _Bool plus;
     _Bool minus;
@@ -223,7 +223,7 @@ void G29update(void) {
     G29State.DPadLeft = (cache[0] & 0x0F) == 0x06;
     G29State.DPadRight = (cache[0] & 0x0F) == 0x02;
 
-    G29State.rotaryDialPress = (cache[3] & 0x08) == 0x08;
+    G29State.dial = (cache[3] & 0x08) == 0x08;
 
     G29State.plus = (cache[2] & 0x80) == 0x80;
     G29State.minus = (cache[3] & 0x01) == 0x01;

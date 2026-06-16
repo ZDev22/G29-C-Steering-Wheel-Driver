@@ -42,7 +42,7 @@ int main(void) {
         // G29State.DPadDown -> 1 = pressed, 0 = not pressed
         // G29State.DPadLeft -> 1 = pressed, 0 = not pressed
         // G29State.DPadRight -> 1 = pressed, 0 = not pressed
-        // G29State.rotaryDialPress -> 1 = pressed, 0 = not pressed
+        // G29State.dial -> 1 = pressed, 0 = not pressed
         // G29State.plus -> 1 = pressed, 0 = not pressed
         // G29State.minus -> 1 = pressed, 0 = not pressed
         // G29State.leftPaddle -> 1 = pressed, 0 = not pressed
