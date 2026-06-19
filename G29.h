@@ -34,7 +34,7 @@ typedef struct G29state {
     _Bool DPadLeft;
     _Bool DPadRight;
 
-    _Bool rotaryDialPress;
+    _Bool dial;
 
     _Bool plus;
     _Bool minus;
@@ -228,7 +228,7 @@ void G29update(void) {
     G29State.DPadLeft = (cache[0] & 0x0F) == 0x06;
     G29State.DPadRight = (cache[0] & 0x0F) == 0x02;
 
-    G29State.rotaryDialPress = (cache[3] & 0x08) == 0x08;
+    G29State.dial = (cache[3] & 0x08) == 0x08;
 
     G29State.plus = (cache[2] & 0x80) == 0x80;
     G29State.minus = (cache[3] & 0x01) == 0x01;
@@ -242,7 +242,7 @@ void G29update(void) {
 
     G29_PRINT("steering: %u, throttle: %hu, clutch: %hu, brake: %hu\n", G29State.steering, G29State.throttle, G29State.clutch, G29State.brake);
     G29_PRINT("X: %d, square: %d, triangle: %d, circle: %d\nL2: %d, R2: %d, L3: %d, R3: %d\nDPadUp: %d, DPadDown: %d, DPadLeft: %d, DPadRight: %d\nrotation thingy: %d\n, plus: %d, minus: %d, leftPaddle: %d, rightPaddle: %d\nshare: %d, options: %d, PS: %d\n",
-        G29State.X, G29State.square, G29State.triangle, G29State.circle, G29State.L2, G29State.R2, G29State.L3, G29State.R3, G29State.DPadUp, G29State.DPadDown, G29State.DPadLeft, G29State.DPadRight, G29State.rotaryDialPress, G29State.plus, G29State.minus,
+        G29State.X, G29State.square, G29State.triangle, G29State.circle, G29State.L2, G29State.R2, G29State.L3, G29State.R3, G29State.DPadUp, G29State.DPadDown, G29State.DPadLeft, G29State.DPadRight, G29State.dial, G29State.plus, G29State.minus,
         G29State.leftPaddle, G29State.rightPaddle, G29State.share, G29State.options, G29State.PS);
     G29_PRINT("Rumble timer: %f, current rumble: %f\n", G29RumbleTimer, G29CurrentRumble);
 }
