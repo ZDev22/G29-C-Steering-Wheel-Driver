@@ -54,5 +54,8 @@ int main(void) {
 
     G29Input = 0; // tell steering wheel threads to stop
     /* deinit steering wheel */
-    deinitG29();
+    if (G29Initialized) {
+        /* deinit steering wheel */
+        deinitG29();
+    }
 }

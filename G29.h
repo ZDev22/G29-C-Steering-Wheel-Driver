@@ -34,7 +34,7 @@ typedef struct G29state {
     _Bool DPadLeft;
     _Bool DPadRight;
 
-    _Bool dial;
+    _Bool rotaryDialPress;
 
     _Bool plus;
     _Bool minus;
@@ -62,6 +62,7 @@ void G29disableForces(void); // disable all forces (including rumbling), basical
 
 extern G29state G29State;
 extern _Bool G29RumbleEnabled;
+extern _Bool G29Initialized;
 
 
 #ifdef G29_IMPLEMENTATION
@@ -90,6 +91,7 @@ static float G29Interpolation = 25.f;
 static _Bool G29RumbleState = 0;
 static _Bool G29Rumbling = 1;
 _Bool G29RumbleEnabled = 0;
+_Bool G29Initialized = 0;
 
 void initG29(void) {
     if (hid_init() != 0) {
@@ -100,6 +102,7 @@ void initG29(void) {
     if (!device) {
         G29_PRINT("Failed to open G29 device");
         hid_exit();
+        return;
     }
 
     memset(cache, 0, 9);
@@ -107,6 +110,8 @@ void initG29(void) {
     G29State.throttle = 255;
     G29State.clutch = 255;
     G29State.brake = 255;
+
+    G29Initialized = 1;
 }
 
 void deinitG29(void) {
@@ -223,7 +228,7 @@ void G29update(void) {
     G29State.DPadLeft = (cache[0] & 0x0F) == 0x06;
     G29State.DPadRight = (cache[0] & 0x0F) == 0x02;
 
-    G29State.dial = (cache[3] & 0x08) == 0x08;
+    G29State.rotaryDialPress = (cache[3] & 0x08) == 0x08;
 
     G29State.plus = (cache[2] & 0x80) == 0x80;
     G29State.minus = (cache[3] & 0x01) == 0x01;
