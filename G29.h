@@ -11,7 +11,16 @@
 #ifndef G29_DRIVER_H
 #define G29_DRIVER_H
 
+#ifndef _GNU_SOURCE
+    #define _GNU_SOURCE
+#endif
+#ifndef _POSIX_C_SOURCE
+    #define _POSIX_C_SOURCE 199309L
+#endif
+
 #include <hidapi/hidapi.h>
+#include <string.h>
+#include <time.h>
 
 typedef struct G29state {
     unsigned short steering;
