@@ -8,13 +8,16 @@ _Bool G29Input = 1;
 
 void* input(void* arg) {
     initG29();
-    G29disableForces();
 
-    pthread_t G29Rumble;
-    pthread_create(&G29Rumble, NULL, G29rumble, NULL);
+    if (G29Initialized) {
+        G29disableForces();
 
-    while (G29Input) {
-        G29update();
+        pthread_t G29Rumble;
+        pthread_create(&G29Rumble, NULL, G29rumble, NULL);
+
+        while (G29Input) {
+            G29update();
+        }
     }
     return NULL;
 }
