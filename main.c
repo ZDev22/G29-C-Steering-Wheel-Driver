@@ -12,8 +12,10 @@ void* input(void* arg) {
     if (G29Initialized) {
         G29disableForces();
 
+#ifndef G29_DISABLE_RUMBLE
         pthread_t G29Rumble;
         pthread_create(&G29Rumble, NULL, G29rumble, NULL);
+#endif
 
         while (G29Input) {
             G29update();
