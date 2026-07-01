@@ -45,6 +45,40 @@
     #define _POSIX_C_SOURCE 199309L
 #endif
 
+#ifdef G29_DISABLE_CLUTCH
+    #ifdef G29_DISABLE_BRAKE
+        #ifdef G29_DISABLE_THROTTLE
+            #ifdef G29_DISABLE_STEERING
+                #if defined(G29_DISABLE_PS) && defined(G29_DISABLE_MINUS) && defined(G29_DISABLE_DIAL)
+                    #ifdef G29_DISABLE_PLUS
+                        #ifdef defined(G29_DISABLE_LEFTPADDLE) && defined(G29_DISABLE_RIGHTPADDLE) && defined(G29_DISABLE_SHARE) && defined(G29_DISABLE_OPTION) && defined(G29_DISABLE_L2) && defined(G29_DISABLE_R2) && defined(G29_DISABLE_L3) && defined(G29_DISABLE_R3)
+                            #ifdef defined(G29_DISABLE_X) && defined(G29_DISABLE_SQUARE) && defined(G29_DISABLE_TRIANGLE) && defined(G29_DISABLE_CIRCLE) && defined(G29_DISABLE_DPADUP) && defined(G29_DISABLE_DPADDOWN) && defined(G29_DISABLE_DPADLEFT) && defined(G29_DISABLE_DPADRIGHT)
+                                #define G29_CACHE_SIZE 0
+                            #else
+                                #define G29_CACHE_SIZE 1
+                            #endif
+                        #else
+                            #define G29_CACHE_SIZE 2
+                        #endif
+                    #else
+                        #define G29_CACHE_SIZE 3
+                    #endif
+                #else
+                    #define G29_CACHE_SIZE 4
+                #endif
+            #else
+                #define G29_CACHE_SIZE 6
+            #endif
+        #else
+            #define G29_CACHE_SIZE 7
+        #endif
+    #else
+        #define G29_CACHE_SIZE 8
+    #endif
+#else
+    #define G29_CACHE_SIZE 9
+#endif
+
 #include <hidapi/hidapi.h>
 #include <string.h>
 #include <time.h>
@@ -165,7 +199,7 @@ extern _Bool G29RumbleEnabled;
 #endif
 
 static hid_device* device; // hid device
-static unsigned char cache[9]; // raw input data
+static unsigned char cache[G29_CACHE_SIZE]; // raw input data
 
 G29state G29State; // current state of analog inputs.
 _Bool G29Initialized = 0; // boolean to check if G29 successfully initialized
@@ -195,7 +229,7 @@ void initG29(void) {
         return;
     }
 
-    memset(cache, 0, 9);
+    memset(cache, 0, G29_CACHE_SIZE);
     G29State.steering = 255;
     G29State.throttle = 255;
     G29State.clutch = 255;
@@ -247,7 +281,7 @@ void G29setRange(unsigned short range) {
 }
 
 void G29update(void) {
-    hid_read(device, cache, 9);
+    hid_read(device, cache, G29_CACHE_SIZE);
 
 #ifndef G29_DISABLE_STEERING
     G29State.steering = (unsigned short)cache[4] | ((unsigned short)cache[5] << 8);
