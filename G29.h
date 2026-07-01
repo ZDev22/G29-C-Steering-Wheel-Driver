@@ -167,7 +167,6 @@ typedef struct G29state {
 
 void initG29(void); // initialize the device
 void deinitG29(void); // deinitialize the device
-void G29reset(void); // reset the device if it's acting up, may break connection
 void G29forceConstant(unsigned char val); // push the steering wheel a certain direction, 0 = left <-----, 255 = right ----->
 void G29forceFriction(unsigned char val); // apply friction to the wheel to make it harder to turn
 void G29setAutocenter(unsigned char strength, unsigned char rate); // auto center the wheel
@@ -247,14 +246,6 @@ void deinitG29(void) {
         hid_close(device);
     }
     hid_exit();
-}
-
-void G29reset(void) {
-    const unsigned char msg1[7] = {0xf8, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00};
-    const unsigned char msg2[8] = {0xf8, 0x09, 0x05, 0x01, 0x01, 0x00, 0x00, 0x00};
-
-    hid_write(device, msg1, 7);
-    hid_write(device, msg2, 8);
 }
 
 void G29forceConstant(unsigned char val) { /* 0 = left <-----, 255 = right -----> */
