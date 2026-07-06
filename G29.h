@@ -38,11 +38,8 @@
 #ifndef G29_DRIVER_H
 #define G29_DRIVER_H
 
-#ifndef _GNU_SOURCE
-    #define _GNU_SOURCE
-#endif
 #ifndef _POSIX_C_SOURCE
-    #define _POSIX_C_SOURCE 199309L
+    #define _POSIX_C_SOURCE 200809L
 #endif
 
 #ifdef G29_DISABLE_CLUTCH
