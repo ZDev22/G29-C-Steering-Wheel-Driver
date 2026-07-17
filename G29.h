@@ -215,12 +215,12 @@ _Bool G29RumbleEnabled = 0;
 
 void initG29(void) {
     if (hid_init() != 0) {
-        G29_PRINT("Failed to initialize HIDAPI");
+        G29_PRINT("Failed to initialize HIDAPI\n");
     }
 
     device = hid_open(0x046d, 0xc24f, NULL);
     if (!device) {
-        G29_PRINT("Failed to open G29 device");
+        G29_PRINT("Failed to open G29 device\n");
         hid_exit();
         return;
     }
